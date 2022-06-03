@@ -6,14 +6,15 @@ jobs:
       - image: docker
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          docker_layer_caching: true
+          version: 20.10.12
       - run:
           name: Install dependencies
           command: | 
-            apk add --no-cache py-pip
-            pip install docker-compose
+            apk add --no-cache py-pip docker-compose
       - run:
           name: Run tests
           command: |
-            docker-compose up -d 
-            docker-compose run dockercamp py test.py
+            docker-compose up -d
+            docker-compose run dockercamp python test.py
