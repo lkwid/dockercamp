@@ -18,3 +18,11 @@ jobs:
           command: |
             docker-compose up -d
             docker-compose run dockercamp python test.py
+      - deploy:
+          name: Push to dockerhub
+          command: |
+            docker login -u $dockerhub_user -p $dockerhub_token
+            docker tag dockercamp_dockercamp $dockerhub_user/dockercamp:$CIRCLE_SHA1
+            docker tag dockercamp_dockercamp $dockerhub_user/dockercamp:latest
+            docker push $dockerhub_user/dockercamp:$CIRCLE_SHA1
+            
