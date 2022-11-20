@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: replication-controller-app
+  labels:
+    app: replication-controller
+    type: server
+spec:
+  template:
+    metadata:
+      name: nginx-pod
+      labels:
+        app: replication-controller
+        type: server
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+  replicas: 3
+      
